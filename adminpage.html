@@ -11,78 +11,54 @@
 <title>Print Pro Admin</title>
 
 <style>
-
-html, body {
-    height: 100%;
-}
-
-body {
-    background: #f3f3f3;
-    font-family: 'Segoe UI', sans-serif;
-}
+html, body { height: 100%; }
+body { background: #f3f3f3; font-family: 'Segoe UI', sans-serif; }
 
 .sidebar {
     min-height: 100vh;
     background: linear-gradient(180deg, #b91c1c, #7f1d1d);
     color: white;
 }
-
 .sidebar a {
-    color: #ffe4e6;
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.2s;
+    color: #ffe4e6; display: block; padding: 10px;
+    text-decoration: none; border-radius: 8px; transition: 0.2s;
 }
-
-.sidebar a:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-}
+.sidebar a:hover { background: rgba(255,255,255,0.15); color: white; }
 
 .card {
-    border: none;
-    border-radius: 12px;
+    border: none; border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-
 .icon-box {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+    width: 45px; height: 45px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; color: white;
 }
-
 .bg-blue { background: #3b82f6; }
 .bg-green { background: #22c55e; }
 .bg-yellow { background: #f59e0b; }
 .bg-purple { background: #ef4444; }
 
-.table thead {
-    background: #f1f5f9;
-}
+.table thead { background: #f1f5f9; }
 
+.alert-center {
+    background: #fff3cd; border: 1px solid #ffeeba;
+    border-radius: 8px; padding: 10px; margin-bottom: 15px;
+}
 </style>
 </head>
 
 <body>
-
 <div class="container-fluid">
 <div class="row min-vh-100">
 
 <div class="col-md-2 sidebar p-3">
-    <h5><i class="fa fa-print"></i> PrintPro</h5>
-    <hr>
-
+    <h5><i class="fa fa-print"></i> PrintPro</h5><hr>
     <a href="#" onclick="showSection('dashboard')">Dashboard</a>
     <a href="#" onclick="showSection('products')">Products</a>
     <a href="#" onclick="showSection('stocks')">Stocks</a>
     <a href="#" onclick="showSection('orders')">Orders</a>
     <a href="#" onclick="showSection('sales')">Sales</a>
+    <a href="#" onclick="showSection('alerts')">Alert Center</a>
 </div>
 
 <div class="col-md-10 p-4">
@@ -90,60 +66,36 @@ body {
 <h3>Dashboard</h3>
 
 <div id="dashboard-summary" class="row g-3 mb-4">
-
     <div class="col-md-3">
         <div class="card p-3 d-flex justify-content-between flex-row">
-            <div>
-                <small>Products</small>
-                <h4 id="totalProducts">0</h4>
-            </div>
+            <div><small>Products</small><h4 id="totalProducts">0</h4></div>
             <div class="icon-box bg-blue"><i class="fa fa-box"></i></div>
         </div>
     </div>
-
     <div class="col-md-3">
         <div class="card p-3 d-flex justify-content-between flex-row">
-            <div>
-                <small>Stocks</small>
-                <h4 id="totalStocks">0</h4>
-            </div>
+            <div><small>Stocks</small><h4 id="totalStocks">0</h4></div>
             <div class="icon-box bg-green"><i class="fa fa-layer-group"></i></div>
         </div>
     </div>
-
     <div class="col-md-3">
         <div class="card p-3 d-flex justify-content-between flex-row">
-            <div>
-                <small>Orders</small>
-                <h4 id="totalOrders">1</h4>
-            </div>
+            <div><small>Orders</small><h4 id="totalOrders">1</h4></div>
             <div class="icon-box bg-yellow"><i class="fa fa-shopping-cart"></i></div>
         </div>
     </div>
-
     <div class="col-md-3">
         <div class="card p-3 d-flex justify-content-between flex-row">
-            <div>
-                <small>Sales</small>
-                <h4 id="totalSales">₱0</h4>
-            </div>
+            <div><small>Sales</small><h4 id="totalSales">₱0</h4></div>
             <div class="icon-box bg-purple"><i class="fa fa-peso-sign"></i></div>
         </div>
     </div>
-
 </div>
 
 <div class="card p-3 mb-4 section" id="products-section">
     <h5>Products (Auto Sync)</h5>
     <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+        <thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Status</th></tr></thead>
         <tbody id="productTable"></tbody>
     </table>
 </div>
@@ -151,28 +103,19 @@ body {
 <div class="card p-3 mb-4 section" id="stocks-section" style="display:none;">
     <h5>Stocks</h5>
     <button class="btn btn-primary btn-sm mb-2" onclick="openStock()">+ Add Stock</button>
-
     <table class="table">
-        <thead>
-            <tr><th>Product</th><th>Category</th><th>Stock</th><th>Status</th><th>Actions</th></tr>
-        </thead>
+        <thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody id="stockTable"></tbody>
     </table>
 </div>
 
 <div class="card p-3 mb-4 section" id="orders-section" style="display:none;">
     <h5>Orders</h5>
-
     <table class="table">
-        <thead>
-            <tr><th>ID</th><th>Customer</th><th>Product</th><th>Status</th><th>Actions</th></tr>
-        </thead>
-
+        <thead><tr><th>ID</th><th>Customer</th><th>Product</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody>
             <tr data-customer="Juan" data-product="Tarpaulin" data-amount="750">
-                <td>#001</td>
-                <td>Juan</td>
-                <td>Tarpaulin</td>
+                <td>#001</td><td>Juan</td><td>Tarpaulin</td>
                 <td><span class="badge bg-warning text-dark">Pending</span></td>
                 <td>
                     <button class="btn btn-success btn-sm" onclick="updateOrder(this,'Accepted')">Accept</button>
@@ -186,29 +129,28 @@ body {
 
 <div class="card p-3 mb-4 section" id="sales-section" style="display:none;">
     <h5>Sales</h5>
-
     <canvas id="salesChart" height="100"></canvas>
-
     <table class="table mt-3">
-        <thead>
-            <tr><th>Customer</th><th>Product</th><th>Amount</th><th>Date</th></tr>
-        </thead>
+        <thead><tr><th>Customer</th><th>Product</th><th>Amount</th><th>Date</th></tr></thead>
         <tbody id="salesTable"></tbody>
     </table>
 </div>
 
+<div class="card p-3 mb-4 section" id="alerts-section" style="display:none;">
+    <h5>Alert Center</h5>
+    <div id="alertBox" class="alert-center">
+        <strong>Urgent:</strong> No alerts yet.
+    </div>
 </div>
+
 </div>
 </div>
 
 <script>
-
 let stocks = [];
 let soldOrders = new Set();
-
 let totalSales = 0;
 let totalOrders = 1;
-
 let labels = [];
 let data = [];
 let chart;
@@ -216,17 +158,16 @@ let chart;
 const stockTable = document.getElementById("stockTable");
 const productTable = document.getElementById("productTable");
 const salesTable = document.getElementById("salesTable");
+const alertBox = document.getElementById("alertBox");
 
 function showSection(sec){
     document.querySelectorAll(".section").forEach(s=>s.style.display="none");
     document.getElementById("dashboard-summary").style.display="none";
-
     if(sec === "dashboard"){
         document.querySelectorAll(".section").forEach(s=>s.style.display="block");
         document.getElementById("dashboard-summary").style.display="flex";
         return;
     }
-
     document.getElementById(sec + "-section").style.display="block";
 }
 
@@ -234,48 +175,34 @@ function openStock(){
     let name = prompt("Product");
     let cat = prompt("Category");
     let qty = parseInt(prompt("Stock"));
-
     stocks.push({ id: Date.now(), name, cat, qty });
     renderTables();
+    if(qty <= 5){ addAlert(`Stock low for ${name}`); }
 }
 
 function renderTables(){
-
     stockTable.innerHTML = "";
     productTable.innerHTML = "";
-
     let totalStockCount = 0;
-
     stocks.forEach(s=>{
-
         totalStockCount += s.qty;
-
         let status = s.qty <= 5 ? "Low" : "In Stock";
         let badge = s.qty <= 5 ? "bg-warning text-dark" : "bg-success";
-
         stockTable.innerHTML += `
             <tr>
-                <td>${s.name}</td>
-                <td>${s.cat}</td>
-                <td>${s.qty}</td>
+                <td>${s.name}</td><td>${s.cat}</td><td>${s.qty}</td>
                 <td><span class="badge ${badge}">${status}</span></td>
                 <td>
                     <button class="btn btn-primary btn-sm" onclick="editStock(${s.id})">Edit</button>
                     <button class="btn btn-danger btn-sm" onclick="deleteStock(${s.id})">Delete</button>
                 </td>
-            </tr>
-        `;
-
+            </tr>`;
         productTable.innerHTML += `
             <tr>
-                <td>${s.name}</td>
-                <td>${s.cat}</td>
-                <td>${s.qty}</td>
+                <td>${s.name}</td><td>${s.cat}</td><td>${s.qty}</td>
                 <td><span class="badge ${badge}">${status}</span></td>
-            </tr>
-        `;
+            </tr>`;
     });
-
     document.getElementById("totalStocks").innerText = totalStockCount;
     document.getElementById("totalProducts").innerText = stocks.length;
 }
@@ -294,30 +221,27 @@ function deleteStock(id){
 }
 
 function updateOrder(btn,status){
-
     let row = btn.parentElement.parentElement;
     let badge = row.cells[3].querySelector("span");
-
     badge.innerText = status;
-
     if(status === "Accepted") badge.className="badge bg-success";
     if(status === "Rejected") badge.className="badge bg-danger";
-
     if(status === "Completed" && !soldOrders.has(row)){
-
         soldOrders.add(row);
-
         let a = parseFloat(row.dataset.amount);
         totalSales += a;
-
         document.getElementById("totalSales").innerText = "₱"+totalSales;
-
         labels.push(row.dataset.product);
         data.push(a);
-
         chart.update();
+        salesTable.innerHTML += `
+            <tr>
+                <td>${row.dataset.customer}</td>
+                <td>${row.dataset.product}</td>
+                <td>₱${a}</td>
+                <td>${new Date().toLocaleDateString()}</td>
+            </tr>`;
     }
-
     totalOrders++;
     document.getElementById("totalOrders").innerText = totalOrders;
 }
@@ -336,12 +260,15 @@ function initChart(){
     });
 }
 
+function addAlert(msg){
+    alertBox.innerHTML = `<strong>Urgent:</strong> ${msg}`;
+}
+
 window.onload = function(){
     initChart();
     renderTables();
     showSection("dashboard");
 };
-
 </script>
 
 </body>
